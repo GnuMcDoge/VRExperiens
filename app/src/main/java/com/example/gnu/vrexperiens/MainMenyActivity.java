@@ -1,5 +1,6 @@
 package com.example.gnu.vrexperiens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,6 +38,15 @@ public class MainMenyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 toastMessage("Starting stream ");
             }
+        });
+        mTestSpaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainMenyActivity.this,TestSpaceActivity.class);
+                startActivity(intent);
+
+        }
+
         });
 
     }
