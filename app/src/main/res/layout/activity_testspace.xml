@@ -9,12 +9,12 @@
 
 
     <TextView
-    android:id="@+id/Xtest"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textSize="40px"
-    android:text="X"/>
+        android:id="@+id/Xtest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="40px"
+        android:text="X"/>
     <TextView
         android:id="@+id/Ytest"
         android:layout_width="wrap_content"
@@ -29,5 +29,30 @@
         android:gravity="center"
         android:textSize="40px"
         android:text="Z"/>
+
+
+
+
+    <TextView
+        android:id="@+id/filterX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="40px"
+        android:text="XFilter:"/>
+    <TextView
+        android:id="@+id/YFiltertest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="40px"
+        android:text="Y Filter:"/>
+    <TextView
+        android:id="@+id/ZFiltertest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="40px"
+        android:text="Z Filter:"/>
 
 </LinearLayout>
