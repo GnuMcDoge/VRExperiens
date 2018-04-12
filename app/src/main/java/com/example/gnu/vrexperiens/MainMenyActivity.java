@@ -37,7 +37,9 @@ public class MainMenyActivity extends AppCompatActivity {
         mConectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toastMessage("Conecting......");
+                Intent intent = new Intent(MainMenyActivity.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
         mStreamButton.setOnClickListener(new View.OnClickListener() {
