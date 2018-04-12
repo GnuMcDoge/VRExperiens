@@ -1,7 +1,7 @@
 package com.example.gnu.vrexperiens;
 
-import android.content.Context;
-import android.media.AudioManager;
+
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -24,10 +24,13 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
 
     private SensorActivity mSensorActivity = new SensorActivity();
 
+
     private TextView mXtext, mYtext, mZtext,mXfiltext,mYfiltext,mZfiltext;
     private Sensor mSensor;
     private Sensor mSensor2;
     private SensorManager mSensorManager;
+
+    private MediaPlayer mMediaPlayer = new MediaPlayer();
 
 
     private int[] movePosition = new int[3];
@@ -36,7 +39,7 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
     private static final float ALPHAMag = 0.10f;
     private static final float ALPHAacc= 0.25f;
 
-    private int[] movePositiondummy = new int[3];
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +56,7 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
         mSensorManager.registerListener(this,mSensor2,SensorManager.SENSOR_DELAY_FASTEST);
 
 
-        movePositiondummy[0]=2;
-        movePositiondummy[1]=9;
-        movePositiondummy[2]=0;
+
 
 
 
@@ -92,7 +93,15 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
         mZfiltext.setText("Z: " +(int) magSensorVals[2]);
 
 
-       mSensorActivity.positionItSholdMOveTo(movePositiondummy);
+        if( magSensorVals[1] == 0){
+
+            mMediaPlayer.stop();
+        }
+
+
+    //   mSensorActivity.positionItSholdMOveTo(movePositiondummy);
+
+
 
 
     }

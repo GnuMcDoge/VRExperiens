@@ -1,6 +1,7 @@
 package com.example.gnu.vrexperiens;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,8 @@ public class MainMenyActivity extends AppCompatActivity {
     private Button mStreamButton;
     private Button mTestSpaceButton;
 
+    private MediaPlayer mMediaPlayer;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmeny);
@@ -26,6 +29,10 @@ public class MainMenyActivity extends AppCompatActivity {
         mStreamButton = (Button) findViewById(R.id.StreamButton);
         mTestSpaceButton = (Button) findViewById(R.id.TestSpaceButton);
 
+
+
+        mMediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mMediaPlayer.setLooping(true);
 
         mConectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +49,9 @@ public class MainMenyActivity extends AppCompatActivity {
         mTestSpaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(MainMenyActivity.this,TestSpaceActivity.class);
+
+              //  mMediaPlayer.start();
+                Intent intent = new Intent(MainMenyActivity.this, SensorActivity.class);
                 startActivity(intent);
 
         }

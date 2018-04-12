@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/xtex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="77dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ytex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="160dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ztex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Z"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="246dp"
+        tools:ignore="MissingConstraints" />
+</LinearLayout>
