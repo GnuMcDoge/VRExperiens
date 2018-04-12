@@ -26,6 +26,7 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
     private SensorManager mSensorManager;
 
 
+
     private float pulseVerticalWidth = 0;
     private float pulseHorizonWidth = 0;
 
@@ -82,7 +83,6 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
         mServoController.setPulseWidth(mServo0PwmEnabled ? pulseHorizonWidth : 0f, 0);
         mServoController.setPulseWidth(mServo1PwmEnabled ? pulseVerticalWidth :0f, 1);
 
-
     }
 
 
@@ -105,14 +105,16 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
         }
         else{
             mServo0PwmEnabled=false;
-            toastMessage("FALSE X");
+
         }
         if (positionMoveTo[1]!= (int)magSensorVals[1]){
             mServo1PwmEnabled = true;
+
         }
         else {
             mServo1PwmEnabled = false;
-            toastMessage("FALSE Y");
+
+
         }
 
 
