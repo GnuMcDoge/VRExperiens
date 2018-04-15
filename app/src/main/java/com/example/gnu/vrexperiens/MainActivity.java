@@ -1,9 +1,11 @@
 package com.example.gnu.vrexperiens;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -12,6 +14,7 @@ import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -196,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     WifiP2pManager.ConnectionInfoListener connectionInfoListener = new WifiP2pManager.ConnectionInfoListener() {
         @Override
         public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
-            final InetAddress groupOwnerAddress  = wifiP2pInfo.groupOwnerAddress;
+            InetAddress groupOwnerAddress  = wifiP2pInfo.groupOwnerAddress;
 
             if(wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner){
                 connectionStatus.setText("Host");
@@ -229,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                serverSocket = new ServerSocket(8888);
+                serverSocket = new ServerSocket(8080);
                 socket = serverSocket.accept();
                 sendReceive = new SendReceive(socket);
                 sendReceive.start();
@@ -251,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                socket.connect(new InetSocketAddress(hostAdd,8888),500);
+                socket.connect(new InetSocketAddress(hostAdd,8080),500);
                 sendReceive = new SendReceive(socket);
                 sendReceive.start();
             } catch (IOException e) {

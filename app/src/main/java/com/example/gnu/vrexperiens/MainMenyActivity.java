@@ -52,7 +52,7 @@ public class MainMenyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-              //  mMediaPlayer.start();
+                //mMediaPlayer.start();
                 Intent intent = new Intent(MainMenyActivity.this, SensorActivity.class);
                 startActivity(intent);
 
