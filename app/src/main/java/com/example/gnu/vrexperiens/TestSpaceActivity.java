@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class TestSpaceActivity extends AppCompatActivity implements SensorEventListener{
     private LowPassFilter lowPassFilter = new LowPassFilter();
 
-    private SensorActivity mSensorActivity = new SensorActivity();
+    private P2PSendAndReceive p2PSendAndReceive = P2PSendAndReceive.getP2PSendAndReceive();
 
 
     private TextView mXtext, mYtext, mZtext,mXfiltext,mYfiltext,mZfiltext;
@@ -30,23 +30,30 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
     private Sensor mSensor2;
     private SensorManager mSensorManager;
 
-    private MediaPlayer mMediaPlayer = new MediaPlayer();
+
 
 
     private int[] movePosition = new int[3];
+    private int[] movePosition2 = new int[3];
+
     private float[] magSensorVals = new float[3];
     private float[] accSensorVals = new float[3];
+    private String positionString="";
     private static final float ALPHAMag = 0.10f;
     private static final float ALPHAacc= 0.25f;
 
+    private boolean moveDone=true;
+    private boolean gnu=false;
 
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testspace);
-
-
+        movePosition[0] =0;
+        movePosition[1] =0;
+        movePosition[2] =0;
+        movePosition2=movePosition;
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -75,14 +82,13 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
 
         if(event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
             magSensorVals = lowPassFilter.filterThis(event.values.clone(), magSensorVals, ALPHAMag);
+            gnu=true;
         }
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             accSensorVals = lowPassFilter.filterThis(event.values.clone(), accSensorVals,ALPHAacc);
         }
 
-        movePosition[0] = (int)accSensorVals[0];
-        movePosition[1] = (int)magSensorVals[1];
-        movePosition[2] = (int)magSensorVals[2];
+
 
         mXtext.setText("X: " +(int) event.values[0]);
         mYtext.setText("Y: " +(int) event.values[1]);
@@ -93,13 +99,20 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
         mZfiltext.setText("Z: " +(int) magSensorVals[2]);
 
 
-        if( magSensorVals[1] == 0){
+        if((movePosition[0]+3)<accSensorVals[0]||movePosition[0]-3>accSensorVals[0]){
 
-            mMediaPlayer.stop();
+            movePosition[0] = (int) accSensorVals[0];
+            if (magSensorVals!=null) {
+                movePosition[1] = (int) magSensorVals[1];
+                movePosition[2] = (int) magSensorVals[2];
+            }else
+            {
+                movePosition[1] = 0;
+                movePosition[2] = 0;
+            }
+            sendMovePosition(movePosition);
+
         }
-
-
-    //   mSensorActivity.positionItSholdMOveTo(movePositiondummy);
 
 
 
@@ -111,6 +124,25 @@ public class TestSpaceActivity extends AppCompatActivity implements SensorEventL
 
 
     }
+
+    private void sendMovePosition(int[] position){
+
+        if(moveDone) {
+            moveDone=false;
+            positionString = positionString + (Integer.toString(movePosition[0])) + ",";
+            positionString = positionString + (Integer.toString(movePosition[1])) + ",";
+            positionString = positionString + (Integer.toString(movePosition[2]));
+
+            p2PSendAndReceive.write(positionString.getBytes());
+            positionString = "";
+            moveDone=true;
+        }
+
+
+
+    }
+
+
 
     private void toastMessage(String message){
 

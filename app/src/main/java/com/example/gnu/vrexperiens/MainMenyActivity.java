@@ -37,7 +37,7 @@ public class MainMenyActivity extends AppCompatActivity {
         mConectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainMenyActivity.this, MainActivity.class);
+                Intent intent = new Intent(MainMenyActivity.this, P2PMain.class);
                 startActivity(intent);
 
             }
@@ -53,7 +53,7 @@ public class MainMenyActivity extends AppCompatActivity {
             public void onClick(View view){
 
                 //mMediaPlayer.start();
-                Intent intent = new Intent(MainMenyActivity.this, SensorActivity.class);
+                Intent intent = new Intent(MainMenyActivity.this, TestSpaceActivity.class);
                 startActivity(intent);
 
         }

@@ -4,7 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -19,6 +18,8 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
 
     private LowPassFilter lowPassFilter = new LowPassFilter();
     private ServoController mServoController = new ServoController();
+    private PositionChanger positionChanger = PositionChanger.getPositionChanger();
+
 
 
     private Sensor mSensor;
@@ -35,14 +36,10 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
 
     private float[] magSensorVals = new float[3];
     private float[] accSensorVals = new float[3];
-    private int[] positionMoveTo;
+    private int[] positionMoveTo = new int[3];
 
-    private float rightSound = 0;
-    private float leaftSound = 0;
 
     private int[] movePositiondummy = new int[3];
-   private MediaPlayer mMediaPlayer = new MediaPlayer();
-
 
     private static final float ALPHAMag = 0.10f;
     private static final float ALPHAacc= 0.25f;
@@ -56,11 +53,10 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
             x = findViewById(R.id.xtex);
             y = findViewById(R.id.ytex);
             z = findViewById(R.id.ztex);
+            positionMoveTo[0]=0;
+            positionMoveTo[1]=0;
+            positionMoveTo[2]=0;
 
-
-            movePositiondummy[0]=2;
-            movePositiondummy[1]=9;
-            movePositiondummy[2]=0;
 
             mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 
@@ -70,12 +66,13 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
         mSensorManager.registerListener(this,mSensor, SensorManager.SENSOR_DELAY_FASTEST);
         mSensorManager.registerListener(this,mSensor2,SensorManager.SENSOR_DELAY_FASTEST);
 
-        positionItSholdMOveTo(movePositiondummy);
+
     }
 
     public void positionItSholdMOveTo(int[] position) {
         if (position != null) {
             positionMoveTo = position;
+
         }
     }
 
@@ -118,16 +115,23 @@ public class SensorActivity  extends AppCompatActivity implements SensorEventLis
         }
 
 
+        setPosisiton();
         moveRobot();
 
-        x.setText("X: " +(int) accSensorVals[0]);
-        y.setText("Y: " +(int) magSensorVals[1]);
-        z.setText("Z: " +(int) magSensorVals[2]);
+
 
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+    private void setPosisiton(){
+        positionMoveTo = positionChanger.getPosisiton();
+
+        x.setText("X: " + positionMoveTo[0]);
+        y.setText("Y: " + positionMoveTo[1]);
+        z.setText("Z: " + positionMoveTo[2]);
 
     }
 
